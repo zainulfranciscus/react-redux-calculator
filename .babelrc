@@ -1,0 +1,26 @@
+{
+  "ignore": ["node_modules/lodash", "node_modules/react-dom"],
+  "env": {
+    "test": {
+      "presets": [
+        "react",
+        ["env", {
+          "modules": "commonjs"
+        }]
+      ],
+      "plugins": ["transform-es2015-modules-commonjs"]
+    }
+  },
+  "presets": [
+    "env",
+    "react",
+    "stage-2",
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["last 2 versions", "safari >= 7", "not ie <= 10"]
+      }
+    }]
+  ],
+  "plugins": ["transform-object-rest-spread", "babel-plugin-styled-components", "react-hot-loader/babel"]
+}

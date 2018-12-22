@@ -1,0 +1,33 @@
+{
+  "plugins": [
+    "jest"
+  ],
+  "extends": [
+    "standard",
+    "standard-react"
+  ],
+  "globals": {
+    "it":true,
+    "fail": true,
+    "console":true,
+    "protractor": true,
+    "browser": true,
+    "by": true,
+    "element": true,
+    "expect": true,
+    "jest": true,
+    "describe":true,
+    "ENV": true,
+    "BASIC_AUTH_TOKEN": true,
+    "beforeEach": true,
+    "test": true
+  },
+  "rules": {
+    "max-len": [
+      "error",
+      {
+        "code": 100
+      }
+    ]
+  }
+}
