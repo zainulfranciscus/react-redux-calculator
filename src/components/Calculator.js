@@ -12,8 +12,8 @@ export class Calculator extends Component {
 
     render() {
         let listOfCalculations;
-        if (this.props.listOfNumbersEntered.map) {
-            listOfCalculations = this.props.listOfNumbersEntered.map(function (numbers, index) {
+        if (this.props.listOfNumbersEntered.calculator.length > 0 && this.props.listOfNumbersEntered.calculator.map) {
+            listOfCalculations = this.props.listOfNumbersEntered.calculator.map(function (numbers, index) {
                 const firstNumber = numbers.firstNumber;
                 const secondNumber = numbers.secondNumber;
                 const isCalculating = numbers.isCalculating;

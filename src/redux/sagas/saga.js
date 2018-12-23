@@ -10,7 +10,8 @@ function* doCalculation() {
     const waitingForAPromise = new Promise(resolve => setTimeout(resolve,1500));
     let isPromiseCompleted = yield waitingForAPromise.then(() => {return true});
 
-    const mostRecentCalculation = state[state.length-1];
+    const calculator = state.calculator;
+    const mostRecentCalculation = calculator[calculator.length-1];
     yield put({type: CALCULATION_IS_DONE, firstNumber:mostRecentCalculation.firstNumber,secondNumber:mostRecentCalculation.secondNumber, isCalculating: !isPromiseCompleted});
 }
 
