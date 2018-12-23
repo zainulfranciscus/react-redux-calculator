@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {saveCalculationAction} from "../redux/actions/action";
+import {saveCalculationAction} from '../redux/actions/action';
+import CalculatorForm from './form';
 
 export class Calculator extends Component {
-    calculate() {
-        const firstNumber = parseInt(document.getElementById('number-1').value);
-        const secondNumber = parseInt(document.getElementById('number-2').value);
+    calculate(values) {
+        const firstNumber = parseInt(values.firstNumber);
+        const secondNumber = parseInt(values.secondNumber);
         document.getElementById('result').innerHTML = firstNumber + secondNumber;
         this.props.saveCalculation(firstNumber, secondNumber);
     }
@@ -17,8 +18,6 @@ export class Calculator extends Component {
                 const firstNumber = numbers.firstNumber;
                 const secondNumber = numbers.secondNumber;
                 const isCalculating = numbers.isCalculating;
-
-                console.log(numbers);
 
                 return (
                     <div>
@@ -36,14 +35,7 @@ export class Calculator extends Component {
 
         return (
             <div>
-                <div className="form-group">
-                    <input type="text" id="number-1"/>
-                    +
-                    <input type="text" id="number-2"/>
-                    =
-                    <label id="result">0</label>
-                </div>
-                <button onClick={this.calculate.bind(this)}>Calculate</button>
+                <CalculatorForm onSubmit={this.calculate.bind(this)}/>
                 <div>
                     <p><b>Calculation Done So far</b></p>
                     {listOfCalculations}

@@ -17,6 +17,9 @@ export default function reducer(state = [], action) {
         case CALCULATION_IS_DONE:
             numbers [numbers.length -1]= {firstNumber: action.firstNumber, secondNumber: action.secondNumber, isCalculating: action.isCalculating};
             return numbers;
+        case '@@redux-form/SET_SUBMIT_SUCCEEDED':
+            console.log(action);
+            return;
         default:
             return numbers;
     }
