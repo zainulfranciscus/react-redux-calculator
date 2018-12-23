@@ -7,7 +7,7 @@ import {
 
 function* doCalculation() {
     const state = yield select();
-    const waitingForAPromise = new Promise(resolve => setTimeout(resolve,100));
+    const waitingForAPromise = new Promise(resolve => setTimeout(resolve,1500));
     let isPromiseCompleted = yield waitingForAPromise.then(() => {return true});
 
     const mostRecentCalculation = state[state.length-1];

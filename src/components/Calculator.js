@@ -17,7 +17,9 @@ export class Calculator extends Component {
                 const firstNumber = numbers.firstNumber;
                 const secondNumber = numbers.secondNumber;
                 const isCalculating = numbers.isCalculating;
+
                 console.log(numbers);
+
                 return (
                     <div>
                         {!isCalculating && (
@@ -25,7 +27,7 @@ export class Calculator extends Component {
                         )}
 
                         {isCalculating && (
-                            <p key={Date.now()}>Wait while I retrieve calculation history</p>
+                            <p key={index + '-' + firstNumber + '-' + 'second-number'} className='please-wait'>Wait while I retrieve calculation history</p>
                         )}
                     </div>
                 );

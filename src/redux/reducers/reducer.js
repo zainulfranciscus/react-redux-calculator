@@ -15,8 +15,7 @@ export default function reducer(state = [], action) {
             numbers.push(number);
             return numbers;
         case CALCULATION_IS_DONE:
-            number = {firstNumber: action.firstNumber, secondNumber: action.secondNumber, isCalculating: action.isCalculating};
-            numbers.push(action);
+            numbers [numbers.length -1]= {firstNumber: action.firstNumber, secondNumber: action.secondNumber, isCalculating: action.isCalculating};
             return numbers;
         default:
             return numbers;
