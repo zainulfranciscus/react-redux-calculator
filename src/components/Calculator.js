@@ -2,6 +2,27 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {saveCalculationAction} from '../redux/actions/action';
 import CalculatorForm from './form';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+
+
+const calculationSummary = () => {
+    return (
+        <p>Here is a summary of your calculations</p>
+    )
+};
+
+export const AppRouter = () => {
+    return (
+        <Router>
+            <div>
+                <Link to='/summary'>Home</Link>
+                <hr/>
+                <Route path='/' component={CalculatorContainer}/>
+                <Route path='/summary' component={calculationSummary}/>
+            </div>
+        </Router>)
+};
+
 
 export class Calculator extends Component {
     calculate(values) {
@@ -26,7 +47,8 @@ export class Calculator extends Component {
                         )}
 
                         {isCalculating && (
-                            <p key={index + '-' + firstNumber + '-' + 'second-number'} className='please-wait'>Wait while I retrieve calculation history</p>
+                            <p key={index + '-' + firstNumber + '-' + 'second-number'} className='please-wait'>Wait
+                                while I retrieve calculation history</p>
                         )}
                     </div>
                 );
