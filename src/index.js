@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
-import {CalculatorContainer, AppRouter} from './components/Calculator';
+import {AppRouter} from './components/Calculator';
 import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {reducer as formReducer} from 'redux-form';
 import reducer from './redux/reducers/reducer';

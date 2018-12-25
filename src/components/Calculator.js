@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {saveCalculationAction} from '../redux/actions/action';
 import CalculatorForm from './form';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-
+import CalculationSummaryContainer from './CalculationSummary';
 
 const calculationSummary = () => {
     return (
@@ -17,8 +17,10 @@ export const AppRouter = () => {
             <div>
                 <Link to='/summary'>Home</Link>
                 <hr/>
-                <Route path='/' component={CalculatorContainer}/>
-                <Route path='/summary' component={calculationSummary}/>
+
+                    <Route exact path='/' component={CalculatorContainer}/>
+                    <Route path='/summary' component={calculationSummary}/>
+
             </div>
         </Router>)
 };
@@ -33,34 +35,13 @@ export class Calculator extends Component {
     }
 
     render() {
-        let listOfCalculations;
-        if (this.props.listOfNumbersEntered.calculator.length > 0 && this.props.listOfNumbersEntered.calculator.map) {
-            listOfCalculations = this.props.listOfNumbersEntered.calculator.map(function (numbers, index) {
-                const firstNumber = numbers.firstNumber;
-                const secondNumber = numbers.secondNumber;
-                const isCalculating = numbers.isCalculating;
-
-                return (
-                    <div>
-                        {!isCalculating && (
-                            <p key={index}>{firstNumber} + {secondNumber} = {firstNumber + secondNumber}</p>
-                        )}
-
-                        {isCalculating && (
-                            <p key={index + '-' + firstNumber + '-' + 'second-number'} className='please-wait'>Wait
-                                while I retrieve calculation history</p>
-                        )}
-                    </div>
-                );
-            });
-        }
 
         return (
             <div>
                 <CalculatorForm onSubmit={this.calculate.bind(this)}/>
                 <div>
                     <p><b>Calculation Done So far</b></p>
-                    {listOfCalculations}
+                    <CalculationSummaryContainer />
                 </div>
             </div>
         );
@@ -75,10 +56,5 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-const mapStateToProps = state => {
-    return {
-        listOfNumbersEntered: state
-    };
-};
 
-export const CalculatorContainer = connect(mapStateToProps, mapDispatchToProps)(Calculator);
+export const CalculatorContainer = connect((state)=>state, mapDispatchToProps)(Calculator);
