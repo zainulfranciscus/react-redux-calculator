@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {saveCalculationAction} from '../redux/actions/action';
 import CalculatorForm from './form';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route } from 'react-router-dom';
 import CalculationSummaryContainer from './CalculationSummary';
 
 const calculationSummary = () => {
     return (
-        <p>Here is a summary of your calculations</p>
+        <div>
+            <p>Here is a summary of your calculations</p>
+            <CalculationSummaryContainer/>
+        </div>
     )
 };
 
@@ -15,16 +18,12 @@ export const AppRouter = () => {
     return (
         <Router>
             <div>
-                <Link to='/summary'>Home</Link>
                 <hr/>
-
-                    <Route exact path='/' component={CalculatorContainer}/>
-                    <Route path='/summary' component={calculationSummary}/>
-
+                <Route exact path='/' component={CalculatorContainer}/>
+                <Route path='/summary' render={calculationSummary}/>
             </div>
         </Router>)
 };
-
 
 export class Calculator extends Component {
     calculate(values) {
@@ -42,6 +41,7 @@ export class Calculator extends Component {
                 <div>
                     <p><b>Calculation Done So far</b></p>
                     <CalculationSummaryContainer />
+                    <a href="/summary">Done</a>
                 </div>
             </div>
         );

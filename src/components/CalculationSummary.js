@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import connect from "react-redux/es/connect/connect";
+import { withRouter } from 'react-router-dom';
 
 export class CalculationSummary extends Component {
     render() {
@@ -40,6 +41,6 @@ const mapStateToProps = state => {
     };
 };
 
-const CalculationSummaryContainer = connect(mapStateToProps)(CalculationSummary);
+const CalculationSummaryContainer = withRouter(connect(mapStateToProps)(CalculationSummary));
 
 export default CalculationSummaryContainer;

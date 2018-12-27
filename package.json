@@ -11,6 +11,7 @@
     "format": "prettier-standard 'src/**/*.js'"
   },
   "dependencies": {
+    "connected-react-router": "^6.0.0",
     "history": "^4.7.2",
     "lodash": "^4.17.5",
     "moment": "^2.22.0",
