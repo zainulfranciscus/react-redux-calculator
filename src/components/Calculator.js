@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {saveCalculationAction} from '../redux/actions/action';
+import {saveCalculationAction,openSummaryPageAction} from '../redux/actions/action';
 import CalculatorForm from './form';
-import {BrowserRouter as Router, Route } from 'react-router-dom';
+import {Route, Router } from 'react-router-dom';
 import CalculationSummaryContainer from './CalculationSummary';
+import PropTypes from 'prop-types';
 
 const calculationSummary = () => {
     return (
@@ -14,34 +15,37 @@ const calculationSummary = () => {
     )
 };
 
-export const AppRouter = () => {
+export const AppRouter = ({history}) => {
     return (
-        <Router>
+        <Router history={history}>
             <div>
-                <hr/>
-                <Route exact path='/' component={CalculatorContainer}/>
+                <Route path='/' exact component={CalculatorContainer}/>
                 <Route path='/summary' render={calculationSummary}/>
             </div>
         </Router>)
 };
 
+AppRouter.propTypes = {
+    history: PropTypes.object,
+};
+
 export class Calculator extends Component {
+
     calculate(values) {
-        const firstNumber = parseInt(values.firstNumber);
-        const secondNumber = parseInt(values.secondNumber);
-        document.getElementById('result').innerHTML = firstNumber + secondNumber;
+        const {firstNumber, secondNumber} =  values;
+        //todo: figure out how to pass props of this comonent to the form, so that this code below can be done in the form
+        document.getElementById('result').innerHTML = parseInt(firstNumber) + parseInt(secondNumber);
         this.props.saveCalculation(firstNumber, secondNumber);
     }
 
     render() {
-
         return (
             <div>
                 <CalculatorForm onSubmit={this.calculate.bind(this)}/>
                 <div>
                     <p><b>Calculation Done So far</b></p>
                     <CalculationSummaryContainer />
-                    <a href="/summary">Done</a>
+                    <a href="/summary" onClick={()=>this.props.history.push('/summary',this.props.calculator)}>Done</a>
                 </div>
             </div>
         );
@@ -57,4 +61,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 
-export const CalculatorContainer = connect((state)=>state, mapDispatchToProps)(Calculator);
+export const CalculatorContainer = connect((state)=>state, mapDispatchToProps, null, {forwardRef: true})(Calculator);

@@ -5,6 +5,7 @@ const renderField = ({
                          input,
                          label,
                          type,
+                         onChange,
                          meta: {touched, error, warning}
                      }) => (
     <span>
@@ -15,21 +16,30 @@ const renderField = ({
     </span>
 );
 
-let CalculatorForm = props => {
-    const {handleSubmit} = props;
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <Field name="firstNumber" component={renderField} type="text"/>
-                <button type="submit">+</button>
-                <Field name="secondNumber" component={renderField} type="text"/>
-                =
-                <Field name="result" component="label" type="label"/>
-                <label id="result">0</label>
-            </form>
-        </div>
-    )
-};
+class CalculatorForm extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            firstNumber:0,
+            secondNumber:0
+        }
+    }
+    render(){
+        const {handleSubmit} = this.props;
+        return (
+            <div>
+                <form onSubmit={handleSubmit}>
+                    <Field name="firstNumber" component={renderField} onChange={e => this.state.firstNumber = e.target.value} type="text"/>
+                    <button type="submit">+</button>
+                    <Field name="secondNumber" component={renderField} onChange={e => this.state.secondNumber = e.target.value} type="text"/>
+                    =
+                    <Field name="result" component="label" type="label"/>
+                    <label id="result">{parseInt(this.state.firstNumber) + parseInt(this.state.secondNumber)}</label>
+                </form>
+            </div>
+        )
+    }
+}
 
 const validate = values => {
     const errors = {};

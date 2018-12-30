@@ -1,25 +1,27 @@
 import React, {Component} from 'react';
 import connect from "react-redux/es/connect/connect";
-import { withRouter } from 'react-router-dom';
+import {withRouter} from "react-router";
 
 export class CalculationSummary extends Component {
+
+    isListEmpty(list){
+        return !list || (list.length === 0 || !list.map);
+    }
     render() {
 
-        const listOfNumbers = this.props.listOfNumbersEntered.calculator;
+        const listOfNumbers = !this.isListEmpty(this.props.listOfNumbersEntered.calculator) ? this.props.listOfNumbersEntered.calculator: this.props.history.location.state;
 
-        if(!listOfNumbers || (listOfNumbers.length === 0 || !listOfNumbers.map)) {
+        if(this.isListEmpty(listOfNumbers)) {
             return null;
         }
 
         return listOfNumbers.map(function (numbers, index) {
-            const firstNumber = numbers.firstNumber;
-            const secondNumber = numbers.secondNumber;
-            const isCalculating = numbers.isCalculating;
+            const {firstNumber, secondNumber, isCalculating} = numbers;
 
             return (
                 <div>
                     {!isCalculating && (
-                        <p key={index}>{firstNumber} + {secondNumber} = {firstNumber + secondNumber}</p>
+                        <p key={index}>{firstNumber} + {secondNumber} = {parseInt(firstNumber) + parseInt(secondNumber)}</p>
                     )}
 
                     {isCalculating && (
@@ -33,14 +35,12 @@ export class CalculationSummary extends Component {
     }
 }
 
-
-
 const mapStateToProps = state => {
     return {
         listOfNumbersEntered: state
     };
 };
 
-const CalculationSummaryContainer = withRouter(connect(mapStateToProps)(CalculationSummary));
+const CalculationSummaryContainer = withRouter(connect(mapStateToProps,null,null, {forwardRef: true})(CalculationSummary));
 
 export default CalculationSummaryContainer;

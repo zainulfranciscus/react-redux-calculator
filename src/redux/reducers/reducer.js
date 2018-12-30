@@ -1,6 +1,7 @@
 import {
     CALCULATION_IS_DONE,
-    CLICK_CALCULATE_BUTTON
+    CLICK_CALCULATE_BUTTON,
+    OPEN_SUMMARY_PAGE
 } from '../types/types';
 import {combineReducers} from "redux";
 import {reducer as formReducer} from "redux-form";
@@ -8,18 +9,15 @@ import {connectRouter} from "connected-react-router";
 
 const reducer = function reducer(state = [], action) {
     let numbers = [];
-    if(state instanceof Array) {
-        numbers = numbers.concat(state);
-    }
+    numbers = numbers.concat(state);
 
     switch (action.type) {
+        case OPEN_SUMMARY_PAGE:
+            return state;
         case CLICK_CALCULATE_BUTTON:
-            let number = {firstNumber: action.firstNumber, secondNumber: action.secondNumber, isCalculating: true};
-            numbers.push(number);
+            numbers.push(action.payload);
             return numbers;
         case CALCULATION_IS_DONE:
-            numbers [numbers.length -1]= {firstNumber: action.firstNumber, secondNumber: action.secondNumber, isCalculating: action.isCalculating};
-            return numbers;
         default:
             return numbers;
     }
