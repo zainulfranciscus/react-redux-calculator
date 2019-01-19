@@ -1,46 +1,38 @@
 import React, {Component} from 'react';
-import connect from "react-redux/es/connect/connect";
-import {withRouter} from "react-router";
+
 
 export class CalculationSummary extends Component {
 
-    isListEmpty(list){
-        return !list || (list.length === 0 || !list.map);
-    }
     render() {
 
-        const listOfNumbers = !this.isListEmpty(this.props.listOfNumbersEntered.calculator) ? this.props.listOfNumbersEntered.calculator: this.props.history.location.state;
+        const listOfNumbers = this.props.listOfNumbersEntered;
+        const isCalculating = this.props.isCalculating;
 
-        if(this.isListEmpty(listOfNumbers)) {
-            return null;
-        }
+        return (
+            <React.Fragment>
+            {isCalculating && (
+                <p className='please-wait'>Wait
+                    while I retrieve calculation history</p>
+            )}
+            {
+                listOfNumbers.map(function (numbers, index) {
+                console.log(numbers);
+                const {firstNumber, secondNumber, total} = numbers;
 
-        return listOfNumbers.map(function (numbers, index) {
-            const {firstNumber, secondNumber, isCalculating} = numbers;
+                return (
+                    <React.Fragment key={index}>
+                        {!isCalculating && (
+                            <p>{firstNumber} + {secondNumber} = {total}</p>
+                        )}
 
-            return (
-                <div>
-                    {!isCalculating && (
-                        <p key={index}>{firstNumber} + {secondNumber} = {parseInt(firstNumber) + parseInt(secondNumber)}</p>
-                    )}
 
-                    {isCalculating && (
-                        <p key={index + '-' + firstNumber + '-' + secondNumber} className='please-wait'>Wait
-                            while I retrieve calculation history</p>
-                    )}
-                </div>
-            );
-        });
+                    </React.Fragment>
+                );
+                })
+            }
+            </React.Fragment>
+        );
 
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        listOfNumbersEntered: state
-    };
-};
-
-const CalculationSummaryContainer = withRouter(connect(mapStateToProps,null,null, {forwardRef: true})(CalculationSummary));
-
-export default CalculationSummaryContainer;

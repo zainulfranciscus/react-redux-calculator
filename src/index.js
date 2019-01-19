@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
-import {AppRouter} from './components/Calculator';
+import {AppRouter} from './components/CalculatorRouter';
 import store from './redux/configureStore';
 import {history} from './redux/configureStore';
 
